@@ -9,12 +9,12 @@ function build_model(relax_x::Bool = false, relax_z::Bool = false)
   #U[Components] - lives of new components
   m = Model()
   if relax_x
-    @variable(m, x[Components, 1:T] >= 0)
+    @variable(m, 1 >= x[Components, 1:T] >= 0) #I added 1> in front of it
   else
     @variable(m, x[Components, 1:T] >= 0, Bin)
   end
   if relax_z
-      @variable(m, z[1:T] <= 1)
+      @variable(m, 0 <= z[1:T] <= 1)
   else
       @variable(m, z[1:T] <= 1, Bin)
   end
